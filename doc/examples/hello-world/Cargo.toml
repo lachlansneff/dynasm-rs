@@ -6,7 +6,4 @@ authors = ["CensoredUsername <cens.username@gmail.com>"]
 [dependencies]
 
 [dependencies.dynasm]
-path = "../../../plugin"
-
-[dependencies.dynasmrt]
-path = "../../../runtime"
+path = "../../../dynasm"

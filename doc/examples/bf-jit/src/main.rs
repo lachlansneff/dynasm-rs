@@ -1,9 +1,6 @@
-#![feature(proc_macro_hygiene)]
-extern crate dynasmrt;
 extern crate dynasm;
 
-use dynasm::dynasm;
-use dynasmrt::{DynasmApi, DynasmLabelApi};
+use dynasm::{dynasm, DynasmApi, DynasmLabelApi};
 
 extern crate itertools;
 use itertools::Itertools;
@@ -17,15 +14,6 @@ use std::mem;
 use std::u8;
 
 const TAPE_SIZE: usize = 30000;
-
-#[cfg(target_arch = "x86_64")]
-dynasm!(ops
-    ; .alias a_state, rcx
-    ; .alias a_current, rdx
-    ; .alias a_begin, r8
-    ; .alias a_end, r9
-    ; .alias retval, rax
-);
 
 macro_rules! prologue {
     ($ops:ident) => {{
@@ -67,14 +55,23 @@ struct State<'a> {
 }
 
 struct Program {
-    code: dynasmrt::ExecutableBuffer,
-    start: dynasmrt::AssemblyOffset,
+    code: dynasm::ExecutableBuffer,
+    start: dynasm::AssemblyOffset,
 }
 
 
 impl Program {
     fn compile(program: &[u8]) -> Result<Program, &'static str> {
-        let mut ops = dynasmrt::x64::Assembler::new().unwrap();
+        #[cfg(target_arch = "x86_64")]
+        dynasm!(ops
+            ; .alias a_state, rcx
+            ; .alias a_current, rdx
+            ; .alias a_begin, r8
+            ; .alias a_end, r9
+            ; .alias retval, rax
+        );
+
+        let mut ops = dynasm::x64::Assembler::new().unwrap();
         let mut loops = Vec::new();
         let mut code = multipeek(program.iter().cloned());
 

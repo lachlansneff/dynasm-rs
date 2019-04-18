@@ -6,5 +6,5 @@ authors = ["Alexander Stocko <as@coder.gg>", "CensoredUsername <cens.username@gm
 [dependencies]
 
 [dependencies.dynasm]
-path = "../../plugin"
+path = "../../dynasm"
 features = ["dynasm_opmap"]

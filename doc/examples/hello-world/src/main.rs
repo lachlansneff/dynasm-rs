@@ -1,15 +1,12 @@
-#![feature(proc_macro_hygiene)]
-extern crate dynasmrt;
 extern crate dynasm;
 
-use dynasm::dynasm;
-use dynasmrt::{DynasmApi, DynasmLabelApi};
+use dynasm::{dynasm, DynasmApi, DynasmLabelApi};
 
 use std::{io, slice, mem};
 use std::io::Write;
 
 fn main() {
-    let mut ops = dynasmrt::x64::Assembler::new().unwrap();
+    let mut ops = dynasm::x64::Assembler::new().unwrap();
     let string = "Hello World!";
 
     dynasm!(ops
