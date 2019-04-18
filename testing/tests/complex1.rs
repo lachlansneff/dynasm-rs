@@ -1,24 +1,21 @@
-#![feature(proc_macro_hygiene)]
 #![allow(unused_imports)]
 
 #[macro_use]
-extern crate dynasmrt;
 extern crate dynasm;
 
 use dynasm::dynasm;
-use dynasmrt::{DynasmApi, DynasmLabelApi};
-
-// aliases, and dynasm! in item position
-dynasm!(ops
-    ; .alias test, rax
-);
+use dynasm::{DynasmApi, DynasmLabelApi};
 
 fn complex1() {
-    let mut ops = dynasmrt::x64::Assembler::new().unwrap();
+    let mut ops = dynasm::x64::Assembler::new().unwrap();
     let d = 3;
     let c = 4;
 
     let label = ops.new_dynamic_label();
+
+    dynasm!(ops
+        ; .alias test, rax
+    );
 
     // interesting testcases
     dynasm!(ops

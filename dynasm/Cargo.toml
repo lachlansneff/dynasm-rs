@@ -1,5 +1,5 @@
 [package]
-name = "dynasmrt"
+name = "dynasm"
 version = "0.3.1"
 authors = ["Alexander Stocko <as@coder.gg>", "CensoredUsername <cens.username@gmail.com>"]
 
@@ -17,3 +17,5 @@ license = "MPL-2.0"
 memmap = "^0.6.2"
 byteorder = "1"
 take_mut = "^0.2.2"
+proc-macro-hack = "0.5.5"
+dynasm-macro = { path = "../macro" }

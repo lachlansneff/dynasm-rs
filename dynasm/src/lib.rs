@@ -1,6 +1,7 @@
 extern crate memmap;
 extern crate byteorder;
 extern crate take_mut;
+extern crate dynasm_macro;
 
 pub mod common;
 pub mod x64;
@@ -15,6 +16,9 @@ use std::fmt;
 
 use memmap::{Mmap, MmapMut};
 use byteorder::{ByteOrder, LittleEndian};
+
+#[proc_macro_hack::proc_macro_hack]
+pub use dynasm_macro::dynasm;
 
 /// This macro takes a *const pointer from the source operand, and then casts it to the desired return type.
 /// this allows it to be used as an easy shorthand for passing pointers as dynasm immediate arguments.

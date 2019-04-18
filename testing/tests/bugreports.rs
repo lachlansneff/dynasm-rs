@@ -1,16 +1,14 @@
-#![feature(proc_macro_hygiene)]
 #![allow(unused_imports)]
 
-extern crate dynasmrt;
 extern crate dynasm;
 
 use dynasm::dynasm;
-use dynasmrt::DynasmApi;
+use dynasm::DynasmApi;
 
 // basic dynamic register usage
 #[test]
 fn bugreport_1() {
-    let mut ops = dynasmrt::x64::Assembler::new().unwrap();
+    let mut ops = dynasm::x64::Assembler::new().unwrap();
     dynasm!(ops
        ; int 3
        ; mov Rq(8), rdi
@@ -27,7 +25,7 @@ fn bugreport_1() {
 // ensure RBP/RSP can be used as dynamic base register by always emitting the full SIB byte and a displacement
 #[test]
 fn bugreport_2() {
-    let mut ops = dynasmrt::x64::Assembler::new().unwrap();
+    let mut ops = dynasm::x64::Assembler::new().unwrap();
     dynasm!(ops
        ; inc [rsp]
        ; inc [Rq(4)]
@@ -59,7 +57,7 @@ fn bugreport_2() {
 // ensure dynamic registers work correctly with VEX ops
 #[test]
 fn bugreport_3() {
-    let mut ops = dynasmrt::x64::Assembler::new().unwrap();
+    let mut ops = dynasm::x64::Assembler::new().unwrap();
     dynasm!(ops
        ; vaddsd Rx(1), Rx(2), Rx(3)
        ; vaddsd Rx(10), Rx(9), Rx(11)

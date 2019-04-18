@@ -1,5 +1,5 @@
 [package]
-name = "dynasm"
+name = "dynasm-macro"
 version = "0.3.2"
 authors = ["Alexander Stocko <as@coder.gg>", "CensoredUsername <cens.username@gmail.com>"]
 
@@ -13,7 +13,6 @@ keywords = ["jit", "dynasm", "dynasmrt", "dynasm-rs", "assembler"]
 license = "MPL-2.0"
 
 [lib]
-name = "dynasm"
 proc-macro = true
 
 [dependencies]
@@ -22,6 +21,7 @@ bitflags = "1.0"
 owning_ref = "^0.3.3"
 byteorder = "1"
 quote = "^0.6.8"
+proc-macro-hack = "0.5.5"
 
 [dependencies.syn]
 version = "^0.15.18"

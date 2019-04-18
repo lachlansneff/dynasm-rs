@@ -184,15 +184,8 @@ pub fn serialize(name: &TokenTree, stmts: Vec<Stmt>) -> TokenStream {
         })
     }
 
-    // if we have nothing to emit, expand to nothing. Else, wrap it into a block.
-    if output.is_empty() {
-        output
-    } else {
-        quote!{
-            {
-                #output
-            }
-        }
+    quote! {
+        { #output }
     }
 }
 

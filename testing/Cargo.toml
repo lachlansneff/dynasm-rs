@@ -7,7 +7,4 @@ authors = ["Alexander Stocko <as@coder.gg>", "CensoredUsername <cens.username@gm
 itertools = "0.5.*"
 
 [dependencies.dynasm]
-path = "../plugin"
-
-[dependencies.dynasmrt]
-path = "../runtime"
+path = "../dynasm"

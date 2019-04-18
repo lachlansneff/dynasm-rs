@@ -32,7 +32,7 @@ mod directive;
 mod serialize;
 
 /// The whole point
-#[proc_macro]
+#[proc_macro_hack::proc_macro_hack]
 pub fn dynasm(tokens: proc_macro::TokenStream) -> proc_macro::TokenStream {
     // try parsing the tokenstream into a dynasm struct containing
     // an abstract representation of the statements to create
