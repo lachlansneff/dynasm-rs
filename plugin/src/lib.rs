@@ -1,5 +1,4 @@
-#![feature(proc_macro_diagnostic)]
-#![feature(proc_macro_span)]
+#![cfg_attr(feature = "nightly", feature(proc_macro_diagnostic, proc_macro_span))]
 
 // token/ast manipulation
 extern crate proc_macro;
@@ -234,10 +233,11 @@ type FileLocalData = OwningRef<RwLockReadGuard<'static, DynasmStorage>, Mutex<Dy
 
 fn file_local_data() -> FileLocalData {
     // get the file that generated this macro expansion
-    let span = Span::call_site().unstable();
-
     // and use the file that that was at as scope for resolving dynasm data
-    let id = span.source_file().path();
+    #[cfg(feature = "nightly")]
+    let id = Span::call_site().source_file().path();
+    #[cfg(not(feature = "nightly"))]
+    let id: PathBuf = "".into(); // Temporary until the `proc_macro_span` feature is stabilized.
 
     {
         let data = RwLockReadGuardRef::new(DYNASM_STORAGE.read().unwrap());
@@ -261,6 +261,12 @@ lazy_static! {
 
 // FIXME: temporary till Diagnostic gets stabilized
 fn emit_error_at(span: Span, msg: String) {
-    let span: proc_macro::Span = span.unstable();
-    span.error(msg).emit();
+    #[cfg(nightly)]
+    {
+        let span: proc_macro::Span = span.unstable();
+        span.error(msg).emit();
+    }
+
+    #[cfg(not(nightly))]
+    panic!("error at {:?}: {}", span, msg);
 }
